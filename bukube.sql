@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2018 at 05:21 PM
+-- Generation Time: May 01, 2018 at 11:40 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.4
 
@@ -25,14 +25,53 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `book_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` int(11) NOT NULL,
+  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stock` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inquiries`
+--
+
+CREATE TABLE `inquiries` (
+  `inquiry_id` int(11) NOT NULL,
+  `email` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `resolved` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inquiries`
+--
+
+INSERT INTO `inquiries` (`inquiry_id`, `email`, `title`, `body`, `created_at`, `resolved`) VALUES
+(1, 'wisn.adn@gmail.com', 'refund issue', 'my order has been canceled so please return my fucking money', '2018-05-01 11:38:15', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `email` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fullname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fullname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -41,18 +80,30 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `username`, `fullname`, `password`, `address`) VALUES
-(1, 'wisn.adn@gmail.com', 'wisn', '', 'wisn', NULL);
+INSERT INTO `users` (`user_id`, `email`, `username`, `fullname`, `password`, `address`) VALUES
+(1, 'wisn.adn@gmail.com', 'wisn', NULL, 'wisn', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`book_id`);
+
+--
+-- Indexes for table `inquiries`
+--
+ALTER TABLE `inquiries`
+  ADD PRIMARY KEY (`inquiry_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `username` (`username`);
 
@@ -61,10 +112,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `inquiries`
+--
+ALTER TABLE `inquiries`
+  MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,21 +1,39 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$data = [];
+$post = [];
 
-if ($this->session->flashdata('data') != NULL)
-  $data = $this->session->flashdata('data');
+if ($this->session->flashdata('post') != NULL)
+  $post = $this->session->flashdata('post');
+?>
 ?>
 
-Inquiry
+<?php $this->view('partials/head'); ?>
+<body class="login-page">
+  <?php $this->view('partials/header'); ?>
+  <main>
+    <div class="container">
+      <?php echo form_open('page/inquiry'); ?>
+        <h1><a href="<?php echo base_url(); ?>">Bukube</a></h1>
+        <span style="width: 75%" class="unique-underline"></span>
 
-<?php echo form_open('page/inquiry'); ?>
-  <input type="email" name="email" placeholder="email" value="<?php if (isset($data['email'])) echo $data['email']; ?>" required>
-  <input type="text" name="title" placeholder="title" value="<?php if (isset($data['title'])) echo $data['title']; ?>" required>
-  <textarea name="body" required><?php if (isset($data['body'])) echo $data['body']; ?></textarea>
-  <input type="submit">
-</form>
+        <?php if (($msg = $this->session->flashdata('msg')) != NULL): ?>
+          <div class="alert alert-danger" style="margin-top: 2em">
+            Error occurred:
+            <ul>
+              <?php foreach ($msg as $m): ?>
+                <li><?php echo $m; ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
 
-<?php if (($msg = $this->session->flashdata('msg')) != NULL): ?>
-<?php   print_r($msg); ?>
-<?php endif; ?>
+        <input type="text" name="email" placeholder="Email" value="<?php if (isset($post['email'])) echo $post['email']; ?>" required>
+        <input type="text" name="title" placeholder="Title" value="<?php if (isset($post['title'])) echo $post['title']; ?>" required>
+        <textarea name="body" placeholder="Description" required><?php if (isset($post['body'])) echo $post['body']; ?></textarea>
+        <input type="submit" value="Send">
+      </form>
+    </div>
+    <?php $this->view('partials/carts'); ?>
+  </main>
+<?php $this->view('partials/footer'); ?>

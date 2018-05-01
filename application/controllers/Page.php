@@ -3,12 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Page extends CI_Controller {
   public function index() {
-    $this->load->view('pages/home');
+    $data = [
+      'title' => 'Bukube &mdash; Sell and Buy Used Book Online'
+    ];
+    $this->load->view('pages/home', $data);
   }
 
   public function inquiry() {
+    $data =[
+      'title' => 'Contact Bukube'
+    ];
+
     if ($this->input->method() != 'post')
-      $this->load->view('pages/inquiry');
+      $this->load->view('pages/inquiry', $data);
     else {
       $msg = [];
       $post = $this->input->post(NULL, TRUE);
@@ -44,7 +51,7 @@ class Page extends CI_Controller {
         }
       }
 
-      $this->session->set_flashdata('data', $post);
+      $this->session->set_flashdata('post', $post);
       redirect('page/inquiry');
     }
   }

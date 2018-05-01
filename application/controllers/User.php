@@ -8,8 +8,12 @@ class User extends CI_Controller {
   }
 
   public function signup() {
+    $data = [
+      'title' => 'Sign up to Bukube'
+    ];
+
     if ($this->input->method() != 'post')
-      $this->load->view('user/signup');
+      $this->load->view('user/signup', $data);
     else {
       $msg = [];
       $post = $this->input->post(NULL, TRUE);
@@ -37,8 +41,21 @@ class User extends CI_Controller {
       else {
         $action = $this->user->signup($post);
 
-        if ($action)
+        if ($action) {
+          if (($book = $this->session->userdata('book')) != NULL) {
+            $this->load->model('Book_model', 'book');
+            $query = $this->book->new($book);
+
+            if ($query)
+              $this->session->unset_userdata('book');
+            else
+              $this->session->set_flashdata('msg', [
+                'Fail to submit your book. Please signin then re-submit it.'
+              ]);
+          }
+
           redirect('user/signin');
+        }
         else {
           $this->session->set_flashdata('msg', ['Ooops! Internal error.']);
 
@@ -49,8 +66,12 @@ class User extends CI_Controller {
   }
 
   public function signin() {
+    $data = [
+      'title' => 'Sign in to Bukube'
+    ];
+
     if ($this->input->method() != 'post')
-      $this->load->view('user/signin');
+      $this->load->view('user/signin', $data);
     else {
       $msg = [];
       $post = $this->input->post(NULL, TRUE);
@@ -78,7 +99,7 @@ class User extends CI_Controller {
         else {
           $this->session->set_userdata('user', $user[0]);
 
-          redirect('shop');
+          redirect('user/profile');
         }
       }
     }
