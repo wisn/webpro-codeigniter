@@ -2,7 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inquiry_model extends CI_Model {
-  public function all() {
+  public function allByEmail($email) {
+    $this->db->where('email', $email);
+    $this->db->order_by('inquiry_id', 'DESC');
+    return $this->db->get('inquiries')->result();
+  }
+
+  public function getById($id) {
+    $this->db->where('inquiry_id', $id);
     return $this->db->get('inquiries')->result();
   }
 
@@ -26,21 +33,13 @@ class Inquiry_model extends CI_Model {
     return false;
   }
 
-  public function open($id) {
-    $this->db->set('resolved', 0);
-    $this->db->where('id', $id);
+  public function update($id, $data) {
+    $this->db->where('inquiry_id', $id);
+    $this->db->set('title', $data['title']);
+    $this->db->set('body', $data['body']);
+    $this->db->set('resolved', $data['resolved']);
+
     $query = $this->db->update('inquiries');
-
-    if ($query) return true;
-
-    return false;
-  }
-
-  public function close($id) {
-    $this->db->set('resolved', 1);
-    $this->db->where('id', $id);
-    $query = $this->db->update('inquiries');
-
     if ($query) return true;
 
     return false;

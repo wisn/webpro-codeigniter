@@ -6,7 +6,6 @@ $post = [];
 if ($this->session->flashdata('post') != NULL)
   $post = $this->session->flashdata('post');
 ?>
-?>
 
 <?php $this->view('partials/head'); ?>
 <body class="login-page">

@@ -34,8 +34,25 @@ class User_model extends CI_Model {
     $query .= 'OR username = \''. $data['identifier'] .'\') ';
     $query .= 'AND password = \''. $data['password'] .'\'';
 
-    $result = $this->db->query($query)->result_array();
+    $result = $this->db->query($query)->result();
 
     return $result;
+  }
+
+  public function getById($id) {
+    $this->db->where('user_id', $id);
+    return $this->db->get('users')->result();
+  }
+
+  public function replacePassword($id, $password) {
+    $this->db->where('user_id', $id);
+    return $this->db->set('users', ['password' => $password]);
+  }
+
+  public function updateProfile($id, $data) {
+    $this->db->where('user_id', $id);
+    $this->db->set('fullname', $data['fullname']);
+    $this->db->set('address', $data['address']);
+    return $this->db->update('users');
   }
 }

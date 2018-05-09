@@ -5,7 +5,7 @@
         <a href="/">Bukube.</a></div>
       <div class="col-md-8">
         <div class="list">
-          <a href="<?php echo base_url(); ?>page/about-us">About</a>
+          <a href="<?php echo base_url(); ?>page/about_us">About</a>
           <a href="<?php echo base_url(); ?>page/inquiry">Contact</a>
           <a href="<?php echo base_url(); ?>page/privacy-policy">Privacy Policy</a>
           <a href="<?php echo base_url(); ?>page/term-of-service">Term of Service</a></div>
@@ -17,7 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.3/chosen.jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-<script src="<?php echo base_url(); ?>/assets/js/application.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/application.js"></script>
 </body>
 
 </html>

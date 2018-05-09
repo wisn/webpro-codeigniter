@@ -440,3 +440,7 @@ body.buy-books-page main .racks .card .special-button:hover {
 body.buy-books-page main .racks .card img:hover {
   cursor: zoom-in;
 }
+
+body.page main {
+  margin-top: 4em;
+}

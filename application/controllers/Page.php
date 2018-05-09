@@ -4,13 +4,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Page extends CI_Controller {
   public function index() {
     $data = [
+      'page' => '/',
       'title' => 'Bukube &mdash; Sell and Buy Used Book Online'
     ];
     $this->load->view('pages/home', $data);
   }
 
+  public function about_us() {
+    $data = [
+      'page' => 'page/about_us',
+      'title' => 'About Bukube'
+    ];
+
+    $this->load->view('pages/about-us', $data);
+  }
+
   public function inquiry() {
     $data =[
+      'page' => 'page/inquiry',
       'title' => 'Contact Bukube'
     ];
 

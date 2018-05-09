@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2018 at 11:40 PM
+-- Generation Time: May 09, 2018 at 09:42 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.4
 
@@ -59,7 +59,8 @@ CREATE TABLE `inquiries` (
 --
 
 INSERT INTO `inquiries` (`inquiry_id`, `email`, `title`, `body`, `created_at`, `resolved`) VALUES
-(1, 'wisn.adn@gmail.com', 'refund issue', 'my order has been canceled so please return my fucking money', '2018-05-01 11:38:15', 0);
+(1, 'wisn.adn@gmail.com', 'Refund Issue', 'My order has been canceled so please return my fucking money.', '2018-05-01 11:38:15', 1),
+(2, 'wisn.adn@gmail.com', 'Close Account', 'How to close my account? I need to close this account since I don\'t feel safe.', '2018-05-08 16:39:30', 0);
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `email`, `username`, `fullname`, `password`, `address`) VALUES
-(1, 'wisn.adn@gmail.com', 'wisn', NULL, 'wisn', NULL);
+(1, 'wisn.adn@gmail.com', 'wisn', 'Wisnu Adi Nurcahyo', 'wisn', 'Jl. Telekomunikasi No. 01');
 
 --
 -- Indexes for dumped tables
@@ -121,13 +122,13 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
