@@ -130,6 +130,9 @@ class User extends CI_Controller {
   }
 
   public function inquiries() {
+    if ($this->session->userdata('user') == NULL)
+      redirect('user/signin');
+
     $this->load->model('Inquiry_model', 'inquiry');
 
     $user = $this->session->userdata('user');
