@@ -311,4 +311,16 @@ class User extends CI_Controller {
       redirect('user/books');
     }
   }
+
+  public function orders() {
+    $this->load->model('Order_model', 'order');
+    $data = [
+      'page' => 'user/orders',
+      'title' => 'User Orders',
+      'in' => $this->order->in(),
+      'out' => $this->order->out()
+    ];
+
+    $this->load->view('user/orders', $data);
+  }
 }

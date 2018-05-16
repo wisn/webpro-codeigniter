@@ -30,7 +30,8 @@ class Cart extends CI_Controller {
         'title' => $post['title'],
         'price' => $post['price'],
         'fullname' => $post['fullname'],
-        'book_id' => $post['book_id']
+        'book_id' => $post['book_id'],
+        'seller_id' => $post['seller_id']
       ];
       $carts[$post['book_id']] = $cart;
 

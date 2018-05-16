@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2018 at 09:42 AM
+-- Generation Time: May 17, 2018 at 05:50 AM
 -- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.4
+-- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,6 +39,28 @@ CREATE TABLE `books` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`book_id`, `user_id`, `title`, `author`, `price`, `cover`, `stock`, `created_at`) VALUES
+(5, 1, 'Introduction to Lambda Calculus', 'Wisnu Adi Nurcahyo', 300000, NULL, 5, '2018-05-16 16:06:53'),
+(6, 1, 'The Knight\'s Tour Puzzle Solutions', 'Wisnu Adi Nurcahyo', 10000, NULL, 1, '2018-05-16 16:07:53'),
+(7, 2, 'Format Method', 'John Doe', 200000, NULL, 2, '2018-05-16 22:48:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `cart_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -60,7 +82,32 @@ CREATE TABLE `inquiries` (
 
 INSERT INTO `inquiries` (`inquiry_id`, `email`, `title`, `body`, `created_at`, `resolved`) VALUES
 (1, 'wisn.adn@gmail.com', 'Refund Issue', 'My order has been canceled so please return my fucking money.', '2018-05-01 11:38:15', 1),
-(2, 'wisn.adn@gmail.com', 'Close Account', 'How to close my account? I need to close this account since I don\'t feel safe.', '2018-05-08 16:39:30', 0);
+(2, 'wisn.adn@gmail.com', 'Close Account', 'How to close my account? I need to close this account since I don\'t feel safe.', '2018-05-08 16:39:30', 0),
+(3, 'test2@test.com', 'Refund Issue', 'I want to refund my order since the Book is ugly.', '2018-05-09 04:02:17', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `type` enum('in','out') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `books_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `type`, `user_id`, `books_id`, `created_at`) VALUES
+(5, 'out', 2, '6 5', '2018-05-16 22:19:49'),
+(6, 'in', 1, '6 5', '2018-05-16 22:19:50'),
+(7, 'out', 3, '7', '2018-05-16 22:49:36'),
+(8, 'in', 2, '7', '2018-05-16 22:49:36');
 
 -- --------------------------------------------------------
 
@@ -82,7 +129,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `email`, `username`, `fullname`, `password`, `address`) VALUES
-(1, 'wisn.adn@gmail.com', 'wisn', 'Wisnu Adi Nurcahyo', 'wisn', 'Jl. Telekomunikasi No. 01');
+(1, 'wisn.adn@gmail.com', 'wisn', 'Wisnu Adi Nurcahyo', 'wisn', 'Jl. Telekomunikasi No. 01'),
+(2, 'test1@test.com', 'test1', 'Test One', 'test1', 'Jl. Telekomunikasi No. 01'),
+(3, 'test2@test.com', 'test2', 'Test Two', 'test2', 'Jl. Telekomunikasi No. 01');
 
 --
 -- Indexes for dumped tables
@@ -95,10 +144,22 @@ ALTER TABLE `books`
   ADD PRIMARY KEY (`book_id`);
 
 --
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`cart_id`);
+
+--
 -- Indexes for table `inquiries`
 --
 ALTER TABLE `inquiries`
   ADD PRIMARY KEY (`inquiry_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`);
 
 --
 -- Indexes for table `users`
@@ -116,19 +177,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

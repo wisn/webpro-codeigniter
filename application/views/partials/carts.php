@@ -20,7 +20,9 @@
       </ul>
     </div>
     <div style="margin: 1em 0 0; padding: 0 .25em">
-      <a class="btn btn-outline-success btn-block">Order</a>
+      <?php echo form_open('order/out'); ?>
+        <input type="submit" class="btn btn-outline-success btn-block" value="Order">
+      </form>
     </div>
   <?php endif; ?>
 </div>
