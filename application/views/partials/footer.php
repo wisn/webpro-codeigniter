@@ -18,6 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.3/chosen.jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/application.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/plugins.js"></script>
 </body>
 
 </html>

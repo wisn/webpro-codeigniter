@@ -26,11 +26,7 @@ class Inquiry_model extends CI_Model {
   }
 
   public function new($data) {
-    $query = $this->db->insert('inquiries', $data);
-
-    if ($query) return true;
-
-    return false;
+    return $this->db->insert('inquiries', $data);
   }
 
   public function update($id, $data) {
@@ -39,9 +35,6 @@ class Inquiry_model extends CI_Model {
     $this->db->set('body', $data['body']);
     $this->db->set('resolved', $data['resolved']);
 
-    $query = $this->db->update('inquiries');
-    if ($query) return true;
-
-    return false;
+    return $this->db->update('inquiries');
   }
 }

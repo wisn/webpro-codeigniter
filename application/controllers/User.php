@@ -249,4 +249,66 @@ class User extends CI_Controller {
       redirect('user/inquiries');
     }
   }
+
+  public function books() {
+    if ($this->session->userdata('user') == NULL)
+      redirect('user/signin');
+
+    $this->load->model('Book_model', 'book');
+
+    $user = $this->session->userdata('user');
+
+    $data = [
+      'page' => 'user/books',
+      'title' => 'User Books',
+      'books' => $this->book->allByUserId($user->user_id)
+    ];
+
+    $this->load->view('user/books', $data);
+  }
+
+  public function sell_book() {
+    if ($this->input->method() != 'post')
+      redirect('user/signin');
+    else {
+      $msg = [];
+      $post = $this->input->post(NULL, TRUE);
+
+      if (strlen($post['title']) < 5)
+        array_push($msg, 'Book title won\'t that short.');
+
+      if (strlen($post['author']) < 3)
+        array_push($msg, 'Book author is less than three characters.');
+
+      $price = (int) $post['price'];
+      $stock = (int) $post['stock'];
+
+      if ($price < 1)
+        array_push($msg, 'Book price does not valid.');
+
+      if ($stock < 1)
+        array_push($msg, 'Book stock at least must be one.');
+
+      if (!empty($msg))
+        $this->session->set_flashdata('msg', $msg);
+      else {
+        $this->load->model('Book_model', 'book');
+        $post['user_id'] = $this->session->userdata('user')->user_id;
+
+        $query = $this->book->new($post);
+
+        if ($query) {
+          $this->session->set_flashdata('success', 'Book added.');
+          $post = [];
+        }
+        else
+          array_push($msg, 'Can\'t send it. Internal error.');
+
+        $this->session->set_flashdata('msg', $msg);
+      }
+
+      $this->session->set_flashdata('post', $post);
+      redirect('user/books');
+    }
+  }
 }

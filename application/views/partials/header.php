@@ -14,15 +14,24 @@
               Home
             </a>
           </li>
-          <li class="nav-item <?php if ($page == 'shop') echo 'active'; ?>">
-            <a href="<?php echo base_url(); ?>shop" class="nav-link">Buy Book</a></li>
-          <li class="nav-item <?php if ($page == 'book/submit') echo 'active'; ?>">
-            <a href="<?php echo base_url(); ?>book/submit" class="nav-link">Sell Book</a></li>
+          <li class="nav-item <?php if ($page == 'book/list') echo 'active'; ?>">
+            <a href="<?php echo base_url(); ?>book/list" class="nav-link">Buy Book</a>
+          </li>
+          <?php if ($this->session->userdata('user') == NULL): ?>
+            <li class="nav-item <?php if ($page == 'book/submit') echo 'active'; ?>">
+              <a href="<?php echo base_url(); ?>book/submit" class="nav-link">Sell Book</a>
+            </li>
+          <?php else: ?>
+            <li class="nav-item <?php if ($page == 'user/books') echo 'active'; ?>">
+              <a href="<?php echo base_url(); ?>user/books" class="nav-link">Sell Book</a>
+            </li>
+          <?php endif; ?>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a href="<?php echo base_url(); ?>carts/" class="nav-link">
-              <i class="fa fa-shopping-cart"></i></a>
+              <i class="fa fa-shopping-cart" <?php if ($this->session->userdata('carts') != NULL) echo 'style="background-color: #999; color: #fff"' ?>></i>
+            </a>
           </li>
           <?php if ($this->session->userdata('user') == NULL): ?>
             <li class="nav-item <?php if ($page == 'user/signup') echo 'active'; ?>">
